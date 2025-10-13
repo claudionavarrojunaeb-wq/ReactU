@@ -1,13 +1,13 @@
 import { CustomHeader } from "./shared/components/CustomHeader.tsx";
 import { SearchBar } from "./shared/components/SearchBar.tsx";
 import { PreviouSearches } from "./shared/components/PreviouSearches.tsx";
-import { GifsList } from "./shared/components/GifsList.tsx";
-import { mockGifs } from "./mocks-data/gifs.mock";
+//import { GifsList } from "./shared/components/GifsList.tsx";
+//import { mockGifs } from "./mocks-data/gifs.mock";
 import { useState } from "react";
 
 export const GifsApp = () => {
-  const [previousTerms, setPreviousTerms] = useState(["dragon ball z"]);
-
+  // const [previousTerms, setPreviousTerms] = useState(["dragon ball z"]);
+  const [previousTerms] = useState(["dragon ball z"]);
   const handleTermClicked = (term: string) => {
     console.log(term);
   };

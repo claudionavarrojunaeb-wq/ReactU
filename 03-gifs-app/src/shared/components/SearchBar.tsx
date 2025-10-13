@@ -1,12 +1,19 @@
+import { useState } from "react";
+
 interface Props {
   placeholder: string;
-  onQuery: (query: string) => void;
+  onQuery: (query: string) => void; // onQuery: (q: string) => void;
+  buttonText?: string;
 }
-export const SearchBar = ({
-  placeholder = "Buscador de gifs", //en caso de que venga vacío
+export const SearchBar: React.FC<Props> = ({
+  placeholder = "Buscador de gifs",
   onQuery,
+  buttonText = "Buscar",
 }: Props) => {
   const [query, setQuery] = useState("");
+  const submit = () => {
+    onQuery(query);
+  };
   return (
     <div className="search-container">
       <input
@@ -15,10 +22,7 @@ export const SearchBar = ({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <button>Buscar</button>
+      <button onClick={submit}>{buttonText}</button>
     </div>
   );
 };
-function useState(arg0: string): [any, any] {
-  throw new Error("Function not implemented.");
-}
