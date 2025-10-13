@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface Props {
-  placeholder: string;
+  placeholder?: string;
   onQuery: (query: string) => void; // onQuery: (q: string) => void;
   buttonText?: string;
 }

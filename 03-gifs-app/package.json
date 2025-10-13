@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "coverage": "jest --coverage --passWithNoTests"
   },
   "dependencies": {
     "react": "^19.1.1",
