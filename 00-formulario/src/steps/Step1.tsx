@@ -1,5 +1,6 @@
 import React from "react";
 import type { FormData } from "../MultiStepForm";
+import { userTypes } from "../mocks/userTypes";
 
 type Props = {
   data: FormData;
@@ -9,6 +10,19 @@ type Props = {
 const Step1: React.FC<Props> = ({ data, onChange }) => {
   return (
     <div>
+      <label>
+        Tipo de usuario/a
+        <select
+          value={data.userType ?? ""}
+          onChange={(e) => onChange({ userType: e.target.value })}
+        >
+          {userTypes.map((ut) => (
+            <option key={ut.value} value={ut.value}>
+              {ut.label}
+            </option>
+          ))}
+        </select>
+      </label>
       <label>
         Nombre
         <input

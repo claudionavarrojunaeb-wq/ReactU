@@ -6,6 +6,7 @@ import "./index.css";
 
 export type FormData = {
   name: string;
+  userType?: string;
   email: string;
   age?: number;
   agree: boolean;
@@ -13,6 +14,7 @@ export type FormData = {
 
 const initialData: FormData = {
   name: "",
+  userType: undefined,
   email: "",
   age: undefined,
   agree: false,
@@ -41,9 +43,9 @@ export const MultiStepForm: React.FC = () => {
         <h2>Formulario multipaso (Paso {step} de 3)</h2>
 
         <div className="msf-stepper">
-          <div className={`msf-step ${step >= 1 ? "active" : ""}`}>1</div>
-          <div className={`msf-step ${step >= 2 ? "active" : ""}`}>2</div>
-          <div className={`msf-step ${step >= 3 ? "active" : ""}`}>3</div>
+          <div className={`msf-step ${step === 1 ? "active" : ""}`}>1</div>
+          <div className={`msf-step ${step === 2 ? "active" : ""}`}>2</div>
+          <div className={`msf-step ${step === 3 ? "active" : ""}`}>3</div>
         </div>
 
         {step === 1 && <Step1 data={data} onChange={update} />}

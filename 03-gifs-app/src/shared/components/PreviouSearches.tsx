@@ -14,7 +14,7 @@ export const PreviouSearches: FC<Props> = ({ searches, onLabelClicked }) => {
           <li
             key={term}
             className="previous-searches-item"
-            onClick={() => onLabelClicked(term)}
+            onClick={() => onLabelClicked(term)} //console.log(event)} // =>
           >
             {term}
           </li>

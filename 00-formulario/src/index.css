@@ -11,6 +11,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 .msf-stepper {
@@ -23,16 +24,8 @@
 }
 
 .msf-stepper::before {
-  /* connecting line */
-  content: "";
-  position: absolute;
-  left: 36px;
-  right: 36px;
-  top: 50%;
-  height: 2px;
-  background: #e6e6e6;
-  transform: translateY(-50%);
-  z-index: 0;
+  /* connecting line removed per UI request */
+  display: none;
 }
 
 .msf-step {
@@ -40,19 +33,21 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #fff;
-  border: 2px solid #e6e6e6;
+  /* fondo celeste para todos los pasos */
+  background: #bfe9ff; /* celeste claro */
+  border: 2px solid transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: #666;
+  color: #ffffff; /* texto blanco por defecto (no activo) */
 }
 
 .msf-step.active {
-  background: linear-gradient(135deg, #6b8cff, #4c6ef5);
-  color: #fff;
-  border-color: transparent;
+  /* mismo fondo celeste, pero con borde azul y texto azul */
+  background: #bfe9ff;
+  color: #1e63d6; /* azul para texto activo */
+  border-color: #1e63d6; /* borde azul */
 }
 
 .msf-actions {
@@ -87,4 +82,14 @@
   margin-top: 6px;
   border: 1px solid #ddd;
   border-radius: 6px;
+}
+
+.msf-card select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  appearance: none; /* elimina flecha nativa en algunos navegadores */
 }
