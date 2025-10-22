@@ -1,22 +1,24 @@
 import { CustomHeader } from "./shared/components/CustomHeader.tsx";
 import { SearchBar } from "./shared/components/SearchBar.tsx";
-import { PreviouSearches } from "./shared/components/PreviouSearches.tsx";
-import { GifsList } from "./shared/components/GifsList.tsx";
+import { PreviouSearches } from "./gifs/components/PreviouSearches.tsx";
+import { GifsList } from "./gifs/components/GifsList.tsx";
 import { mockGifs } from "./mocks-data/gifs.mock";
 import { useState } from "react";
+import { getGifsByQuery } from "./gifs/actions/get-gifs-by-query.action.ts";
 
 export const GifsApp = () => {
   // const [previousTerms, setPreviousTerms] = useState(["dragon ball z"]);
-  const [previousTerms, setPreviousTerms] = useState([]);
+  const [previousTerms, setPreviousTerms] = useState(['Dragon Ball Z']);
   const handleTermClicked = (termino: string) => {
     console.log(termino);
   };
 
-  const handleSearch = (query: string = '') => {
+  const handleSearch = async (query: string = '') => {
     query = query.trim().toLowerCase()
     if (query.length === 0) return;
     if(previousTerms.includes(query)) return;
-    setPreviousTerms([query, ...previousTerms].splice(0,8))
+    setPreviousTerms([query, ...previousTerms].splice(0,8));
+    await getGifsByQuery(query);
   };
 
   return (

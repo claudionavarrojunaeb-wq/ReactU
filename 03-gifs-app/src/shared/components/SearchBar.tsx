@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   placeholder?: string;
@@ -7,6 +7,7 @@ interface Props {
 }
 export const SearchBar: React.FC<Props> = ({ placeholder = "Buscador de gifs",onQuery, buttonText = "Buscar",}: Props) => {
   const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
   
   useEffect(() => {
     const timeoutId = setTimeout(()=>{
@@ -22,7 +23,9 @@ export const SearchBar: React.FC<Props> = ({ placeholder = "Buscador de gifs",on
   
   
   const handleSearch = () => {
-    onQuery(query);
+    // Read the current value from the input DOM to avoid stale state during tests
+    const current = inputRef.current?.value ?? query;
+    onQuery(current);
     // setQuery("")
   };
   const handleKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -34,6 +37,7 @@ export const SearchBar: React.FC<Props> = ({ placeholder = "Buscador de gifs",on
     <div className="search-container">
       {/* <h1>{query}</h1> */}
       <input
+        ref={inputRef}
         type="text"
         placeholder={placeholder}
         value={query}
