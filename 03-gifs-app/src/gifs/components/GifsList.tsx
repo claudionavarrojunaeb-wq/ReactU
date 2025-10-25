@@ -16,6 +16,7 @@ export const GifsList: FC<Props> = ({ gifs }) => {
           <p>
             {gif.width} x {gif.height}
           </p>
+
         </div>
       ))}
     </div>
