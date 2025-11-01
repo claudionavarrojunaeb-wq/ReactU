@@ -33,5 +33,21 @@ Comportamiento clave:
 5. Acciones / API helper
 - `src/gifs/actions/get-gifs-by-query.action.ts` — encapsula la llamada a `giphyApi` y mapea la respuesta a los tipos locales.
 
+## Notas sobre tipos e interfaces
+
+**Union Types vs Enums:**
+En `src/gifs/interfaces/giphy.response.ts` se usan tipos de unión en lugar de enums:
+
+```typescript
+// Union types (usado en el proyecto)
+export type Rating = "g" | "pg" | "r";
+export type Type = "gif";
+
+// En lugar de enums (no compatible con erasableSyntaxOnly)
+// export enum Rating { G = "g", PG = "pg", R = "r" }
+```
+
+**Razón:** La configuración de TypeScript tiene `erasableSyntaxOnly: true` para optimización, que no permite enums. Los union types ofrecen la misma funcionalidad con mejor rendimiento.
+
 Cómo ampliar
 - Para añadir ejemplos concretos de props o snapshots de uso, puedo generar ejemplos de Storybook o tests unitarios que muestren los props y el render.

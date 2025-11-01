@@ -100,19 +100,11 @@ export interface Looping {
     mp4:      string;
 }
 
-export enum Rating {
-    G = "g",
-    PG = "pg",
-    R = "r",
-}
+export type Rating = "g" | "pg" | "r";
 
-export enum TrendingDatetimeEnum {
-    The00000000000000 = "0000-00-00 00:00:00",
-}
+export type TrendingDatetimeEnum = "0000-00-00 00:00:00";
 
-export enum Type {
-    GIF = "gif",
-}
+export type Type = "gif";
 
 export interface User {
     avatar_url:    string;
@@ -127,11 +119,7 @@ export interface User {
     is_verified:   boolean;
 }
 
-export enum Name {
-    Empty = "",
-    Mannyjammy = "mannyjammy",
-    Netflixlat = "netflixlat",
-}
+export type Name = "" | "mannyjammy" | "netflixlat";
 
 export interface Meta {
     status:      number;

@@ -74,11 +74,41 @@ Se añadió la carpeta `docs/` con:
 
 - `docs/API.md` — detalles de la API y cómo configurar la API key.
 - `docs/COMPONENTS.md` — listado de componentes y sus props/tipos.
+- `docs/TECHNICAL_LOG.md` — log de decisiones técnicas importantes del proyecto.
 
 Tests y lint
 -----------
 - Tests con Jest (configuración mínima incluida). Ejecuta `npm test` o `npm run test:watch`.
 - Lint con ESLint: `npm run lint`.
+
+Decisiones técnicas
+------------------
+**¿Por qué no usamos `enum` en este proyecto?**
+
+En `src/gifs/interfaces/giphy.response.ts` usamos tipos de unión (`type Rating = "g" | "pg" | "r"`) en lugar de enums por las siguientes razones:
+
+1. **Compatibilidad con `erasableSyntaxOnly`**: La configuración de TypeScript del proyecto tiene `erasableSyntaxOnly: true` para optimización, que no permite la sintaxis de enums.
+
+2. **Menos código generado**: Los tipos de unión no generan código JavaScript adicional, mientras que los enums sí.
+
+3. **Mejor rendimiento**: Al no generar objetos JavaScript en runtime, los tipos de unión son más eficientes.
+
+4. **Simplicidad**: Para casos simples como este, los string literals son más directos.
+
+Ejemplo de conversión realizada:
+```typescript
+// ❌ Antes (causaba error de compilación)
+export enum Rating {
+    G = "g",
+    PG = "pg", 
+    R = "r"
+}
+
+// ✅ Después (funciona correctamente)
+export type Rating = "g" | "pg" | "r";
+```
+
+Si en el futuro necesitas enums, puedes cambiar `erasableSyntaxOnly: false` en la configuración de TypeScript.
 
 Cómo contribuir
 ---------------
