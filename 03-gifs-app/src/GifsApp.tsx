@@ -10,7 +10,7 @@ import type { Gif } from "./gifs/interfaces/gif.interface.ts";
 
 export const GifsApp = () => {
   const [gifs, setGifs] = useState<Gif[]>([]);
-  const [previousTerms, setPreviousTerms] = useState<string[]>([]);
+  const [previousTerms, setPreviousTerms] = useState<string[]>([]);//useState(["Freddy"]);//useState<string[]>([]);
   
   const handleTermClicked = (term: string) => {
     console.log(term);
