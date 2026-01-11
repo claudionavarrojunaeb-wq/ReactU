@@ -33,7 +33,7 @@ const user2 = getUser();
 
 console.log(user, user2)
 
-const myNumbers: umber[] = [1,2,3,4,5];
+const myNumbers: number[] = [1,2,3,4,5];
 
 myNumbers.forEach(function(value){
     console.log({value});
