@@ -3,8 +3,8 @@ const person = {
   age: 45,
   key: 'Ironman',
 };
-const {name:ironmanName, age, key}= person
-console.log({ironmanName, age, key});
+const {name:ironmanName, age:edad, key}= person
+console.log({ironmanName, edad, key});
 
 interface Hero {
   name: string;
@@ -24,6 +24,8 @@ const useContext = ({key, name, age, rank='sin rango' }: Hero) => {
     rank: rank,
     } 
 }
+//const context = useContext(person)
+const {rank, keyName, user:{name, age}} = useContext(person);
 
-const {rank, keyName, user} = useContext(person);
-const { name } = user;
+
+console.log({rank, name, age, keyName})
