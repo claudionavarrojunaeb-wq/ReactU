@@ -1,15 +1,15 @@
-interface Hero{
+export interface Hero{
   id:number;
   name: string;
   owner: Owner;
 }
 //type Owner = 'DC' | 'Marvel';
-enum Owner{
+enum Owner{ //This syntax is not allowed when 'erasableSyntaxOnly' is enabled.ts(1294) -> tsconfig->  "erasableSyntaxOnly": false,
   DC = 'DC', //0
   Marvel = 'Marvel', //1
 }
 
-const heroes: Hero = [
+export const heroes: Hero[] = [
   {
     id: 1,
     name: 'Batman',

@@ -1,0 +1,12 @@
+import {heroes, type Hero} from '../data/heroes.data';
+
+const getHeroById = (id: number): Hero | undefined=>{
+const hero = heroes.find((hero)=>{
+
+});
+
+if(!hero){
+    throw new Error(`No existe uin héroe con el id ${id}`);
+}
+return hero;
+}
