@@ -35,4 +35,9 @@ export const heroes: Hero[] = [
     name: 'Wolverine',
     owner: Owner.Marvel,
   },
+  {
+    id: 6,
+    name: 'Green Lantern',
+    owner: Owner.DC,
+  },
 ];
