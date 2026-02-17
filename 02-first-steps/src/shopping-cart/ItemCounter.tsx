@@ -39,7 +39,18 @@ export const ItemCounter = ({ name, quantity = 1 }: Props) => {
       >
         {name}
       </span>
-      <button onClick={handleAdd}>+1</button>
+      <button
+        onMouseEnter={() => {
+          console.log(`Mouse enter ${name}`);
+          handleAdd();
+        }}
+        onClick={(event) => {
+          console.log(event);
+          handleAdd();
+        }}
+      >
+        +1
+      </button>
       <span>{count}</span>
       <button onClick={handleSubtract}>-1</button>
     </section>

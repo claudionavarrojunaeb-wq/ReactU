@@ -1,27 +1,44 @@
 import type { CSSProperties } from "react";
 
-const firstName = "Claudio";
-const lastName = "Navarro";
-const favoriteGames = ["uno", "dos", "tres"];
+const firstName = "Fernando";
+const lastName = "Herrera";
+
+const favoriteGames = ["Elden Ring", "Smash", "Metal Gear"];
 const isActive = false;
+
 const address = {
-  zipCode: "ytre4565",
-  country: "canada",
+  zipCode: "ABC-123",
+  country: "Canadá",
 };
+
 const myStyles: CSSProperties = {
-  backgroundColor: "#cccccc",
-  borderRadius: isActive ? 10 : 20,
+  backgroundColor: "#fafafa",
+  borderRadius: 20,
   padding: 10,
+  marginTop: 30,
 };
-export function MyAwesomeApp() {
+
+export const MyAwesomeApp = () => {
   return (
-    <>
-      <h1>{firstName}</h1>
-      <h6>{lastName}</h6>
-      <h6>{favoriteGames.join(", ")}</h6>
-      <p>{6 + 4}</p>
-      <p>{isActive ? "Activo" : "Inactivo"}</p>
+    <div data-testid="div-app">
+      <h1 data-testid="first-name-title"> {firstName} </h1>
+      <h3> {lastName} </h3>
+
+      <p className="mi-clase-favorita">{favoriteGames.join(", ")}</p>
+      u
+
+      <h1>{isActive ? "Activo" : "No activo"}</h1>
+
       <p style={myStyles}>{JSON.stringify(address)}</p>
-    </>
+    </div>
   );
-}
+};
+
+// export function MyAwesomeApp() {
+//   return (
+//     <>
+//       <h1>Fernando</h1>
+//       <h3>Herrera</h3>
+//     </>
+//   );
+// }
