@@ -38,13 +38,13 @@ export const GifsApp = () => {
       <SearchBar
         placeholder="Buscador de gifs"
         buttonText="Buscar"
-        onQuery={handleSearch}
+        onQuery={handleSearch}// onQuery={(query:string)=>handleSearch(query)}
       />
 
       {/* Busquedas previas */}
       <PreviouSearches
         searches={previousTerms}
-        onLabelClicked={handleTermClicked}
+        onLabelClicked={handleTermClicked}//{(term: string) =>{return handleTermClicked(term)}}
       />
 
       {/* Listado de Gifs */}

@@ -6,7 +6,7 @@ import { MyAwesomeApp } from "./MyAwesomeApp";
 describe('MyAwesomeApp', () => {
   test('should render firstName and lastName', () => {
     const { container } = render(<MyAwesomeApp />);
-    screen.debug();
+    // screen.debug();
     console.log(container.innerHTML);
 
     const h1 = container.querySelector("h1");
@@ -36,4 +36,28 @@ describe('MyAwesomeApp', () => {
     render(<MyAwesomeApp />);
     expect(screen.getByTestId('div-app')).toMatchSnapshot();
   });
+
+  // test('should render No Activo', () => {
+  //   render(<MyAwesomeApp />);
+  //   screen.debug();
+
+  //   // const h1 = screen.getByRole("heading", {
+  //   //   level: 1,
+  //   // });
+  //   const hh1 = screen.getByTestId("h1-activo");
+  //   expect(hh1.innerHTML).toContain("No activo");
+  // });
+
+
+  test('should render estilo', () => {
+    render(<MyAwesomeApp />);
+    screen.debug();
+
+    // const h1 = screen.getByRole("heading", {
+    //   level: 1,
+    // });
+    const estilo = screen.getByTestId("estilo");
+    expect(estilo.innerHTML).toContain("ABC-123");
+  });
+
 });

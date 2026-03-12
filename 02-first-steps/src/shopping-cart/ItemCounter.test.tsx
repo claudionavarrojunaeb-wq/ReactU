@@ -72,4 +72,16 @@ describe('ItemCounter', () => {
 
     expect(itemText.style.color).toBe('black');
   });
+
+  test('should change to red when count is 1', () => {
+    const quantity = 2;
+    const name = 'Test item';
+    render(<ItemCounter name={name} quantity={quantity} />);
+    const [, buttonSubtract] = screen.getAllByRole('button');
+    const itemText = screen.getByText(name);    
+
+    fireEvent.click(buttonSubtract);
+    
+    expect(itemText.style.color).toBe('red');
+  });
 });

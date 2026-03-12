@@ -4,7 +4,7 @@ const firstName = "Fernando";
 const lastName = "Herrera";
 
 const favoriteGames = ["Elden Ring", "Smash", "Metal Gear"];
-const isActive = false;
+// const isActive = false;
 
 const address = {
   zipCode: "ABC-123",
@@ -25,11 +25,10 @@ export const MyAwesomeApp = () => {
       <h3> {lastName} </h3>
 
       <p className="mi-clase-favorita">{favoriteGames.join(", ")}</p>
-      u
+ 
+      {/* <h1 data-testid="h1-activo">{isActive ? "Activo" : "No activo"}</h1> */}
 
-      <h1>{isActive ? "Activo" : "No activo"}</h1>
-
-      <p style={myStyles}>{JSON.stringify(address)}</p>
+      <p data-testid="estilo" style={myStyles}>{JSON.stringify(address)}</p>
     </div>
   );
 };
