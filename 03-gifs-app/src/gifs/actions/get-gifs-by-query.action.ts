@@ -9,7 +9,7 @@ export const getGifsByQuery = async(query:string): Promise<Gif[]>=>{
             limit:10,           
         }
     })
-    console.log(response)
+    //console.log(response)
     //response.data.data[0].
     //fetch(`https://api.giphy.com/v1/gifs/search?api_key=hKr4IVcCFwXf90d8RcaXxwjTSzjDnJH4&q=${query}&limit=25&lang=en`)
 
