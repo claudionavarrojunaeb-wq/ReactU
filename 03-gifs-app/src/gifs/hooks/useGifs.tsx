@@ -1,7 +1,6 @@
 import { useState } from "react";
-
 import { getGifsByQuery } from "../actions/get-gifs-by-query.action.ts";
-import type { Gif } from "../interfaces/gif.interface.ts";
+import {type Gif } from "../interfaces/gif.interface.ts";
 
 export const useGifs = () => {
     const [gifs, setGifs] = useState<Gif[]>([]);
@@ -11,7 +10,6 @@ const handleTermClicked = async (term: string) => {
     const gifs = await getGifsByQuery(term);
     setGifs(gifs);
   };
-
 
 const handleSearch = async (query: string = '') => {
     query = query.trim().toLowerCase()
