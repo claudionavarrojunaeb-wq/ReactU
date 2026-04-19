@@ -8,10 +8,10 @@ export default defineConfig({
   server: {
     https: {
       key: fs.readFileSync(
-        path.resolve(__dirname, "../backend/api-gateway/localhost-key.pem")
+        path.resolve(__dirname, "../backend/api-gateway/certs/localhost-key.pem")
       ),
       cert: fs.readFileSync(
-        path.resolve(__dirname, "../backend/api-gateway/localhost.pem")
+        path.resolve(__dirname, "../backend/api-gateway/certs/localhost.pem")
       ),
     },
 

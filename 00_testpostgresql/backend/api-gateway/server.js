@@ -8,12 +8,17 @@ import { createProxyMiddleware } from "http-proxy-middleware";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
-dotenv.config();
 // =======================
 // 🔧 __dirname (ES MODULES)
 // =======================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+dotenv.config({
+  path: path.join(__dirname, ".env")
+});
+
+
+
 
 // =======================
 // 🚀 APP
@@ -33,9 +38,31 @@ app.use(rateLimit({
 app.use(express.json());
 
 // =======================
-// 🔑 CONFIG
+// 🔑 CONFIG (.env)
 // =======================
-const JWT_SECRET = process.env.JWT_SECRET || "secret";
+const PORT = process.env.PORT || 3000;
+const JWT_SECRET = process.env.JWT_SECRET;
+
+const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL;
+const USUARIOS_SERVICE_URL = process.env.USUARIOS_SERVICE_URL;
+
+const HTTPS_KEY = process.env.HTTPS_KEY;
+const HTTPS_CERT = process.env.HTTPS_CERT;
+
+// =======================
+// ❗ VALIDACIONES
+// =======================
+if (!JWT_SECRET) {
+  throw new Error("❌ JWT_SECRET no definido en .env");
+}
+
+if (!AUTH_SERVICE_URL || !USUARIOS_SERVICE_URL) {
+  throw new Error("❌ URLs de microservicios no definidas en .env");
+}
+
+if (!HTTPS_KEY || !HTTPS_CERT) {
+  throw new Error("❌ Certificados HTTPS no definidos en .env");
+}
 
 // =======================
 // 🔐 JWT MIDDLEWARE
@@ -74,13 +101,13 @@ function requireAdmin(req, res, next) {
 
 // 🔓 AUTH (PÚBLICO)
 app.use("/auth", createProxyMiddleware({
-  target: "http://localhost:3002", // 👈 AJUSTA SI TU AUTH ESTÁ EN 3001
+  target: AUTH_SERVICE_URL,
   changeOrigin: true,
 }));
 
 // 🔐 USUARIOS (PROTEGIDO)
 app.use("/usuarios", verifyToken, createProxyMiddleware({
-  target: "http://localhost:3001", // 👈 AJUSTA SEGÚN TU SERVICIO
+  target: USUARIOS_SERVICE_URL,
   changeOrigin: true,
 }));
 
@@ -101,13 +128,13 @@ app.get("/health", (req, res) => {
 // 🔒 HTTPS CONFIG
 // =======================
 const httpsOptions = {
-  key: fs.readFileSync(path.join(__dirname, "localhost-key.pem")),
-  cert: fs.readFileSync(path.join(__dirname, "localhost.pem")),
+  key: fs.readFileSync(path.join(__dirname, HTTPS_KEY)),
+  cert: fs.readFileSync(path.join(__dirname, HTTPS_CERT)),
 };
 
 // =======================
 // 🚀 START SERVER
 // =======================
-https.createServer(httpsOptions, app).listen(3000, () => {
-  console.log("🚀 Gateway HTTPS en https://localhost:3000");
+https.createServer(httpsOptions, app).listen(PORT, () => {
+  console.log(`🚀 Gateway HTTPS en https://localhost:${PORT}`);
 });

@@ -4,26 +4,40 @@ import { authenticate } from '../services/ldap.service.js';
 const SECRET = 'secreto123';
 
 export const login = async (req, res) => {
-  const { user, password } = req.body;
-
   try {
-    // 🔥 1. VALIDAR EN LDAP
-    await authenticate(user, password);
+    const { username, password } = req.body;
 
-    // 🔥 2. GENERAR TOKEN
+    console.log("LOGIN:", username, password);
+
+    if (!username || !password) {
+      return res.status(400).json({
+        error: 'username y password requeridos'
+      });
+    }
+
+    // 🔥 DEBUG
+    console.log("ANTES DE LDAP");
+
+    await authenticate(username, password);
+
+    console.log("DESPUÉS DE LDAP");
+
     const token = jwt.sign(
-      { user },
+      { user: username },
       SECRET,
       { expiresIn: '1h' }
     );
 
-    // 🔥 3. RESPONDER
+    console.log("TOKEN GENERADO");
+
     res.json({
       token,
-      user
+      user: username
     });
 
   } catch (err) {
+    console.error("ERROR EN LOGIN:", err);
+
     res.status(401).json({
       error: 'Credenciales inválidas'
     });
