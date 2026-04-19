@@ -19,6 +19,14 @@ Frontend (HTTPS :5173)\
 → Gateway (HTTPS :3000)\
 → Auth (3002) / Usuarios (3001)
 
+## 🔐 Certificados HTTPS
+
+Ejecutar:
+
+```bash
+mkcert -install
+mkcert localhost
+
 ------------------------------------------------------------------------
 
 ## 🔐 Seguridad
