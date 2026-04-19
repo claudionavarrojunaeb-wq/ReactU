@@ -1,11 +1,38 @@
-import express from 'express';
-import authRoutes from './routes/auth.routes.js';
-import cors from 'cors';
-const app = express();
-app.use(express.json());
-app.use(cors()); // 👈 ESTA LÍNEA ES CLAVE
-app.use('/auth', authRoutes);
+import express from "express";
+import authRoutes from "./routes/auth.routes.js";
+import cors from "cors";
+import https from "https";
+import fs from "fs";
 
-app.listen(3002, () => {
-  console.log('Auth service corriendo en 3002');
-});
+const app = express();
+const PORT = 3002;
+
+// middlewares
+app.use(express.json());
+app.use(cors());
+
+// rutas
+app.use("/auth", authRoutes);
+
+// rutas de certificados
+const certPath = "./certs/localhost.pem";
+const keyPath = "./certs/localhost-key.pem";
+
+// fallback automático
+const useHttps = fs.existsSync(certPath) && fs.existsSync(keyPath);
+
+if (useHttps) {
+  https.createServer(
+    {
+      key: fs.readFileSync(keyPath),
+      cert: fs.readFileSync(certPath),
+    },
+    app
+  ).listen(PORT, () => {
+    console.log(`Auth service corriendo en https://localhost:${PORT}`);
+  });
+} else {
+  app.listen(PORT, () => {
+    console.log(`Auth service corriendo en http://localhost:${PORT}`);
+  });
+}
