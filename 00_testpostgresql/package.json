@@ -3,6 +3,6 @@
     "concurrently": "^9.2.1"
   },
   "scripts": {
-    "dev": "concurrently -n USUARIOS,AUTH,FRONT -c blue,green,yellow \"node backend/usuarios-service/server.js\" \"node backend/auth-service/server.js\" \"npm run dev --prefix frontend\""
+    "dev": "concurrently -n GATEWAY,USUARIOS,AUTH,FRONT -c magenta,blue,green,yellow \"node backend/api-gateway/server.js\" \"node backend/usuarios-service/server.js\" \"node backend/auth-service/server.js\" \"npm run dev --prefix frontend\""
   }
 }
