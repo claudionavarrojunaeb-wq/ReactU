@@ -1,4 +1,4 @@
-import ldap from "ldapjs";
+import ldap from "ldapts";
 
 const LDAP_URL = "ldap://10.16.200.221:389";
 
