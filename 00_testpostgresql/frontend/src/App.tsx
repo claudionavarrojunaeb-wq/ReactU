@@ -67,7 +67,7 @@ function App() {
         const res = await fetch(
           `http://localhost:3001/usuarios?page=${page}&limit=${limit}&search=${debouncedSearch}`,
           {
-            headers: { Authorization: token || '' },
+            headers: { Authorization: `Bearer ${token || ''}` },
             signal: controller.signal
           }
         );
@@ -121,7 +121,7 @@ function App() {
 
     await fetch(`http://localhost:3001/usuarios${editando ? '/' + form.id : ''}`, {
       method: editando ? 'PUT' : 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: token || '' },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` },
       body: JSON.stringify(form),
     });
 
@@ -136,7 +136,7 @@ function App() {
 
     await fetch(`http://localhost:3001/usuarios/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: token || '' }
+      headers: { Authorization: `Bearer ${token || ''}` }
     });
 
     cacheRef.current = {}; // 🔥 limpiar cache

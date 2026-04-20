@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import fs from "fs"
 import path from "path"
+import https from "https" // 👈 IMPORTANTE
 
 export default defineConfig({
   plugins: [react()],
@@ -15,17 +16,22 @@ export default defineConfig({
       ),
     },
 
-    // 🔥 PROXY (CLAVE)
     proxy: {
       "/auth": {
-        target: "https://localhost:3000",
-        changeOrigin: true,
-        secure: false, // ⚠️ necesario por mkcert
-      },
-      "/usuarios": {
-        target: "https://localhost:3000",
+        target: "http://localhost:3002",
         changeOrigin: true,
         secure: false,
+        agent: new https.Agent({
+          rejectUnauthorized: false
+        })
+      },
+      "/usuarios": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+        secure: false,
+        agent: new https.Agent({
+          rejectUnauthorized: false
+        })
       }
     }
   }

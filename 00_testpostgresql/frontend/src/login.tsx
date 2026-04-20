@@ -1,252 +1,40 @@
-// import { useState } from "react";
-
-// export default function Login({ onLogin }: any) {
-//   const [username, setUsername] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [message, setMessage] = useState("");
-//   const [loading, setLoading] = useState(false);
-
-//   const handleLogin = async (e: React.FormEvent) => {
-//     e.preventDefault();
-
-//     setLoading(true);
-//     setMessage("");
-
-//     try {
-//       const res = await fetch("http://localhost:3002/auth/login", { // ✅ puerto correcto
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           username, // ⚠️ tu backend usa "user"
-//           password,
-//         }),
-//       });
-
-//       const data = await res.json();
-
-//       if (!res.ok) {
-//         setMessage(data?.error || "Usuario o contraseña incorrectos");
-//         return;
-//       }
-
-//       // ✅ GUARDAR TOKEN
-//       localStorage.setItem("token", data.token);
-
-//       // ✅ CAMBIAR ESTADO GLOBAL
-//       onLogin();
-
-//     } catch (error) {
-//       setMessage("Error de conexión con el servidor");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div style={{ maxWidth: 400, margin: "100px auto", textAlign: "center" }}>
-//       <h2>Login LDAP</h2>
-
-//       <form onSubmit={handleLogin}>
-//         <input
-//           type="text"
-//           placeholder="nombre.apellido"
-//           value={username}
-//           onChange={(e) => setUsername(e.target.value)}
-//           style={{ width: "100%", padding: 8, marginBottom: 10 }}
-//         />
-
-//         <input
-//           type="password"
-//           placeholder="password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           style={{ width: "100%", padding: 8, marginBottom: 10 }}
-//         />
-
-//         <button type="submit" disabled={loading}>
-//           {loading ? "Ingresando..." : "Ingresar"}
-//         </button>
-//       </form>
-
-//       <p>{message}</p>
-//     </div>
-//   );
-// }
-
-
-/////////////////////////////////////////////////////////////////////////////////con ojito
-// import { useState } from "react";
-// import { FaEye, FaEyeSlash } from "react-icons/fa";
-
-// export default function App(): JSX.Element {
-//   const [username, setUsername] = useState<string>("");
-//   const [password, setPassword] = useState<string>("");
-//   const [message, setMessage] = useState<string>("");
-//   const [loading, setLoading] = useState<boolean>(false);
-//   const [showPassword, setShowPassword] = useState<boolean>(false);
-
-//   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-
-//     setLoading(true);
-//     setMessage("");
-
-//     console.log("🔐 Intentando login...");
-
-//     try {
-//       const res = await fetch("http://localhost:3002/auth/login", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           username,
-//           password,
-//         }),
-//       });
-
-//       const data = await res.json();
-
-//       console.log("RESPUESTA:", data);
-
-//       if (!res.ok) {
-//         setMessage(data.error || "Credenciales inválidas");
-//         return;
-//       }
-
-//       localStorage.setItem("token", data.token);
-//       setMessage("Login exitoso 🚀");
-
-//     } catch (err) {
-//       console.error("ERROR FETCH:", err);
-//       setMessage("Error de conexión con el servidor");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div
-//       style={{
-//         height: "100vh",
-//         display: "flex",
-//         justifyContent: "center",
-//         alignItems: "center",
-//         background: "#0f172a",
-//         color: "white",
-//       }}
-//     >
-//       <form
-//         onSubmit={handleLogin}
-//         style={{
-//           width: 300,
-//           display: "flex",
-//           flexDirection: "column",
-//         }}
-//       >
-//         <h2 style={{ textAlign: "center", marginBottom: 20 }}>
-//           Login LDAP
-//         </h2>
-
-//         {/* USERNAME */}
-//         <input
-//           type="text"
-//           placeholder="nombre.apellido"
-//           value={username}
-//           onChange={(e) => setUsername(e.target.value)}
-//           style={{
-//             width: "100%",
-//             padding: "10px",
-//             marginBottom: "10px",
-//             borderRadius: "5px",
-//             border: "none",
-//             outline: "none",
-//             boxSizing: "border-box",
-//           }}
-//         />
-
-//         {/* PASSWORD */}
-//         <div style={{ position: "relative", width: "100%" }}>
-//           <input
-//             type={showPassword ? "text" : "password"}
-//             placeholder="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             style={{
-//               width: "100%",
-//               padding: "10px",
-//               paddingRight: "40px",
-//               marginBottom: "10px",
-//               borderRadius: "5px",
-//               border: "none",
-//               outline: "none",
-//               boxSizing: "border-box",
-//             }}
-//           />
-
-//           <span
-//             onClick={() => setShowPassword(!showPassword)}
-//             style={{
-//               position: "absolute",
-//               right: "10px",
-//               top: "50%",
-//               transform: "translateY(-50%)",
-//               cursor: "pointer",
-//               color: "#555",
-//               display: "flex",
-//               alignItems: "center",
-//             }}
-//           >
-//             {showPassword ? <FaEyeSlash /> : <FaEye />}
-//           </span>
-//         </div>
-
-//         {/* BOTÓN */}
-//         <button
-//           type="submit"
-//           disabled={loading}
-//           style={{
-//             width: "100%",
-//             padding: "10px",
-//             borderRadius: "5px",
-//             border: "none",
-//             cursor: "pointer",
-//             background: "#2563eb",
-//             color: "white",
-//             fontWeight: "bold",
-//           }}
-//         >
-//           {loading ? "Ingresando..." : "Ingresar"}
-//         </button>
-
-//         {/* MENSAJE */}
-//         <p style={{ marginTop: 10, textAlign: "center" }}>
-//           {message}
-//         </p>
-//       </form>
-//     </div>
-//   );
-// }
-
+//D:\_ReactU\ReactU\00_testpostgresql\frontend\src\login.tsx
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+// Using reCAPTCHA v3: we will request a token with `executeRecaptcha('login')`
+// and send it to the backend. Site key (v3) is configured in main.tsx provider.
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 export default function Login({ onLogin }: any): JSX.Element {
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  // reCAPTCHA v3 does not require local token state: we will obtain a
+  // token at submit time with `executeRecaptcha`.
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Obtain reCAPTCHA v3 token (action = 'login')
+    if (!executeRecaptcha) {
+      setMessage('reCAPTCHA no disponible');
+      return;
+    }
+
+    const captchaToken = await executeRecaptcha('login');
+    if (!captchaToken) {
+      setMessage('No se obtuvo token de captcha');
+      return;
+    }
 
     setLoading(true);
     setMessage("");
 
     try {
+      console.log('reCAPTCHA v3 token (frontend):', captchaToken);
       const res = await fetch("http://localhost:3002/auth/login", {
         method: "POST",
         headers: {
@@ -255,92 +43,68 @@ export default function Login({ onLogin }: any): JSX.Element {
         body: JSON.stringify({
           username,
           password,
+          captcha: captchaToken, // token v3
         }),
       });
 
-      const data = await res.json();
+   const data = await res.json();
+//       const text = await res.text();
+// console.log("RESPONSE RAW:", text);
+// return; // 👈 importante para frenar aquí
 
       if (!res.ok) {
         setMessage(data.error || "Credenciales inválidas");
         return;
       }
 
-      // ✅ guardar token
       localStorage.setItem("token", data.token);
-
-      // 🔥 ESTA LÍNEA ES LA CLAVE
       onLogin();
 
     } catch (err) {
-      console.error("ERROR FETCH:", err);
-      setMessage("Error de conexión con el servidor");
+      console.error(err);
+      setMessage("Error de conexión");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "#0f172a",
-        color: "white",
-      }}
-    >
-      <form
-        onSubmit={handleLogin}
-        style={{
-          width: 300,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+    <div style={{
+      height: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      background: "#0f172a",
+      color: "white",
+    }}>
+      <form onSubmit={handleLogin} style={{ width: 300, display: "flex", flexDirection: "column" }}>
+        
         <h2 style={{ textAlign: "center", marginBottom: 20 }}>
           Login LDAP
         </h2>
 
-        {/* USERNAME */}
         <input
           type="text"
           placeholder="nombre.apellido"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          style={{
-            width: "100%",
-            padding: "10px",
-            marginBottom: "10px",
-            borderRadius: "5px",
-            border: "none",
-            boxSizing: "border-box",
-          }}
+          style={{ padding: 10, marginBottom: 10 }}
         />
 
-        {/* PASSWORD */}
         <div style={{ position: "relative" }}>
           <input
             type={showPassword ? "text" : "password"}
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "10px",
-              paddingRight: "40px",
-              marginBottom: "10px",
-              borderRadius: "5px",
-              border: "none",
-              boxSizing: "border-box",
-            }}
+            style={{ padding: 10, marginBottom: 10, width: "100%" }}
           />
 
           <span
             onClick={() => setShowPassword(!showPassword)}
             style={{
               position: "absolute",
-              right: "10px",
+              right: 10,
               top: "50%",
               transform: "translateY(-50%)",
               cursor: "pointer",
@@ -350,16 +114,17 @@ export default function Login({ onLogin }: any): JSX.Element {
           </span>
         </div>
 
-        {/* BOTÓN */}
+        {/* reCAPTCHA v3 is used: token is obtained at submit time via executeRecaptcha. */}
+
         <button
           type="submit"
           disabled={loading}
           style={{
-            padding: "10px",
-            borderRadius: "5px",
-            border: "none",
+            marginTop: 10,
+            padding: 10,
             background: "#2563eb",
             color: "white",
+            border: "none",
           }}
         >
           {loading ? "Ingresando..." : "Ingresar"}

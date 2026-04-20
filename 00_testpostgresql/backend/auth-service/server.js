@@ -1,3 +1,4 @@
+//D:\_ReactU\ReactU\00_testpostgresql\backend\auth-service\server.js
 import express from "express";
 import authRoutes from "./routes/auth.routes.js";
 import cors from "cors";
@@ -14,6 +15,13 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({
   path: path.join(__dirname, ".env")
+});
+
+// DEBUG: indicar si variables críticas están presentes (no imprimir valores)
+console.log('ENV LOADED:', {
+  JWT_SECRET_defined: !!process.env.JWT_SECRET,
+  RECAPTCHA_SECRET_defined: !!process.env.RECAPTCHA_SECRET_V2,
+  PORT: process.env.PORT || '3002'
 });
 
 // =======================

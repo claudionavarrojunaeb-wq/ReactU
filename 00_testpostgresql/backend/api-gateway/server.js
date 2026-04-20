@@ -1,3 +1,4 @@
+//D:\_ReactU\ReactU\00_testpostgresql\backend\api-gateway\server.js
 import express from "express";
 import https from "https";
 import fs from "fs";
@@ -35,7 +36,6 @@ app.use(rateLimit({
   max: 100,
 }));
 
-app.use(express.json());
 
 // =======================
 // 🔑 CONFIG (.env)
@@ -98,11 +98,34 @@ function requireAdmin(req, res, next) {
 // =======================
 // 🔁 PROXIES
 // =======================
-
+app.use((req, res, next) => {
+  console.log("➡️ REQUEST:", req.method, req.url);
+  next();
+});
+// 🔐 AHORA sí parsear JSON
+app.use(express.json());
 // 🔓 AUTH (PÚBLICO)
+// app.use("/auth", createProxyMiddleware({
+//   target: AUTH_SERVICE_URL,
+//   changeOrigin: true,
+//   // pathRewrite: {
+//   //   "^/auth": "/auth"
+//   // }
+// }));
 app.use("/auth", createProxyMiddleware({
   target: AUTH_SERVICE_URL,
   changeOrigin: true,
+  selfHandleResponse: false,
+  on: {
+    proxyReq: (proxyReq, req) => {
+      if (req.body) {
+        const bodyData = JSON.stringify(req.body);
+        proxyReq.setHeader("Content-Type", "application/json");
+        proxyReq.setHeader("Content-Length", Buffer.byteLength(bodyData));
+        proxyReq.write(bodyData);
+      }
+    }
+  }
 }));
 
 // 🔐 USUARIOS (PROTEGIDO)
@@ -117,6 +140,11 @@ app.get("/admin", verifyToken, requireAdmin, (req, res) => {
     message: "Zona admin",
     user: req.user
   });
+});
+// 🔐 GAteway
+app.use((req, res, next) => {
+  console.log("GATEWAY:", req.method, req.url);
+  next();
 });
 
 // ❤️ HEALTH CHECK
